@@ -13,7 +13,7 @@ O Banco Digital é uma aplicação bancária simples implementada em Java que pe
 ## Tecnologias Utilizadas
 - **Java**: Linguagem de programação utilizada para o desenvolvimento da aplicação.
 - **PostgreSQL**: Banco de dados utilizado para armazenar informações dos usuários e detalhes da conta.
-- **Maven** (opcional): Para gerenciar dependências do projeto.
+- **Maven**: Para gerenciar dependências do projeto.
 
 ## Começando
 
