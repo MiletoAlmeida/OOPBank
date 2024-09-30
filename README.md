@@ -1,24 +1,27 @@
-# OOPBank - Digital Banking System
+# Banco Digital
 
-O OOPBank é um sistema de banco digital que permite aos usuários se registrarem, fazerem login e gerenciarem suas contas bancárias. O projeto foi desenvolvido em Java utilizando conceitos de Programação Orientada a Objetos (OOP) e inclui validações para entradas de dados, como números de telefone, e-mails e verificação de idade.
+## Visão Geral
+O Banco Digital é uma aplicação bancária simples implementada em Java que permite aos usuários criar contas, gerenciar seu saldo e realizar transações como depósitos, saques e transferências. Esta aplicação utiliza um banco de dados PostgreSQL para armazenamento de dados e segue princípios de programação orientada a objetos.
 
 ## Funcionalidades
-
-- **Cadastro de Usuários**: Permite que novos usuários se cadastrem com informações pessoais e financeiras.
-- **Login de Usuários**: Usuários registrados podem fazer login usando seu ID e senha.
-- **Validações**: Implementa validações para:
-  - Números de telefone (formato: +XX (XX) XXXXXXXXX)
-  - E-mails (formato padrão de e-mail)
-  - Idade (verifica se o usuário tem 18 anos ou mais)
+- Registro de usuários com validação de e-mail, número de telefone e idade.
+- Gerenciamento de contas, incluindo depósitos, saques e transferências.
+- Geração automática de números de agência e conta se ainda não estiverem presentes no banco de dados.
+- Conectividade com o banco de dados usando PostgreSQL.
+- Interface básica de console para interação.
 
 ## Tecnologias Utilizadas
+- **Java**: Linguagem de programação utilizada para o desenvolvimento da aplicação.
+- **PostgreSQL**: Banco de dados utilizado para armazenar informações dos usuários e detalhes da conta.
+- **Maven** (opcional): Para gerenciar dependências do projeto.
 
-- **Java**: Linguagem de programação utilizada para desenvolver o sistema.
-- **Apache Commons Validator**: Biblioteca para validação de e-mails.
-- **JUnit** (opcional): Para testes unitários (se implementado no futuro).
+## Começando
 
-## Como Executar o Projeto
 
+### Instalação
+
+1. Clone o repositório:
    ```bash
-   git clone https://github.com/miletodev/OOPBank.git
+   git clone [https://github.com/miletodev/OOPBank.git]
    cd OOPBank
+
