@@ -18,7 +18,7 @@ public class Account {
 
     private double balance;
 
-    private double creditLimit;
+    private double additionalLimit;
 
     public long getId() {
         return id;
@@ -52,11 +52,11 @@ public class Account {
         this.balance = balance;
     }
 
-    public double getCreditLimit() {
-        return creditLimit;
+    public double getAdditionalLimit() {
+        return additionalLimit;
     }
 
-    public void setCreditLimit(double creditLimit) {
-        this.creditLimit = creditLimit;
+    public void setAdditionalLimit(double additionalLimit) {
+        this.additionalLimit = additionalLimit;
     }
 }
