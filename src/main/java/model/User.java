@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "tb_user")
 public class User {
@@ -14,7 +15,6 @@ public class User {
 
     private String surname;
 
-    @OneToOne
     private String email;
 
     private String phoneNumber;
@@ -28,11 +28,10 @@ public class User {
     private String occupation;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private int account;
+    Account account = new Account();
 
     @OneToMany
-    private int cardNumber;
-
+    private List<Card> cards;
 
     public long getId() {
         return id;
@@ -106,19 +105,19 @@ public class User {
         this.occupation = occupation;
     }
 
-    public int getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(int account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
-    public int getCardNumber() {
-        return cardNumber;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }
