@@ -1,22 +1,43 @@
-import model.User;
-import repository.UserRepository;
-import service.AccountFactory;
-import service.UserService;
-import service.impl.UserServiceImpl;
+package com.miletodev.oopbank;
+
+import com.miletodev.oopbank.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import com.miletodev.oopbank.repository.UserRepository;
+import com.miletodev.oopbank.service.AccountFactory;
+import com.miletodev.oopbank.service.UserService;
+import com.miletodev.oopbank.service.impl.UserServiceImpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+@SpringBootApplication
 public class OOPBank {
+
+    @Autowired
+    private static UserRepository userRepository;
+
+    @Autowired
+    private static AccountFactory accountFactory;
+
+    @Autowired
+    private static UserService userService;
+
     public static void main(String[] args) {
-        UserRepository userRepository = new userRepository();
-        AccountFactory accountFactory = new AccountFactory();
-        UserService userService = new UserServiceImpl(userRepository, accountFactory);
+        // Inicialização do contexto do Spring
+        ApplicationContext context = SpringApplication.run(OOPBank.class, args);
+
+        // Recupera as instâncias dos beans do Spring
+        userRepository = context.getBean(UserRepository.class);
+        accountFactory = context.getBean(AccountFactory.class);
+        userService = new UserServiceImpl(userRepository, accountFactory);
 
         Scanner input = new Scanner(System.in);
-        System.out.println("Welcome to OOPBank!");
+        System.out.println("Welcome to com.miletodev.oopbank.OOPBank!");
         while (true) { // Loop para manter o menu ativo até o usuário escolher sair
             System.out.println("Choose an option: ");
             System.out.println("1. Register");
@@ -108,7 +129,6 @@ public class OOPBank {
         // Salvar o usuário no repositório
         userService.save(user);
         System.out.println("User registered successfully!");
-
     }
 
     public static void UserLogin(Scanner input, UserService userService) {

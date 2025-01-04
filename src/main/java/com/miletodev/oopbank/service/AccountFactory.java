@@ -1,7 +1,7 @@
-package service;
+package com.miletodev.oopbank.service;
 
-import model.Account;
-import model.User;
+import com.miletodev.oopbank.model.Account;
+import com.miletodev.oopbank.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;

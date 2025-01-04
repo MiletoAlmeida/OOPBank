@@ -1,4 +1,4 @@
-package model;
+package com.miletodev.oopbank.model;
 
 import jakarta.persistence.*;
 

@@ -1,6 +1,6 @@
-package repository;
+package com.miletodev.oopbank.repository;
 
-import model.Card;
+import com.miletodev.oopbank.model.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CardRepository extends JpaRepository<Card, Long> {

@@ -1,12 +1,12 @@
-package service.impl;
+package com.miletodev.oopbank.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import model.User;
-import model.Account;
-import repository.UserRepository;
-import service.AccountFactory;
-import service.UserService;
+import com.miletodev.oopbank.model.User;
+import com.miletodev.oopbank.model.Account;
+import com.miletodev.oopbank.repository.UserRepository;
+import com.miletodev.oopbank.service.AccountFactory;
+import com.miletodev.oopbank.service.UserService;
 
 import java.util.List;
 

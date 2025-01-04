@@ -1,4 +1,4 @@
-package service;
+package com.miletodev.oopbank.service;
 
 import java.util.List;
 

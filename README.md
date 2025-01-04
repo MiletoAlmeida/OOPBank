@@ -1,6 +1,6 @@
-# OOPBank
+# com.miletodev.oopbank.OOPBank
 
-**OOPBank** is a digital banking project developed in Java using Object-Oriented Programming (OOP) concepts. The project aims to create a basic banking account management system with functionalities such as account creation, login, deposits, withdrawals, and transfers.
+**com.miletodev.oopbank.OOPBank** is a digital banking project developed in Java using Object-Oriented Programming (OOP) concepts. The project aims to create a basic banking account management system with functionalities such as account creation, login, deposits, withdrawals, and transfers.
 
 ## Table of Contents
 
@@ -22,9 +22,9 @@
 
 To run this project locally, follow the steps below:
 
-1. **Clone the repository:**
+1. **Clone the com.miletodev.oopbank.repository:**
    ```bash
-   git clone https://github.com/miletodev/OOPBank.git
+   git clone https://github.com/miletodev/com.miletodev.oopbank.OOPBank.git
    ```
 
 2. **Open the project** in your preferred IDE (e.g., IntelliJ IDEA).
@@ -57,26 +57,26 @@ If you just want to run the application, follow the steps below:
 
    Navigate to the directory where you want to download the project.
 
-   Execute the following command to clone the repository:
+   Execute the following command to clone the com.miletodev.oopbank.repository:
    ```bash
-   git clone https://github.com/miletodev/OOPBank.git
+   git clone https://github.com/miletodev/com.miletodev.oopbank.OOPBank.git
    ```
-   This will create a folder named `OOPBank` with all the project files.
+   This will create a folder named `com.miletodev.oopbank.OOPBank` with all the project files.
 
 4. **Obtain the Project Executable:**
 
-   In the cloned repository, you should have a file named `OOPBank.jar`. Ensure that it is in the root directory of the project.
+   In the cloned com.miletodev.oopbank.repository, you should have a file named `com.miletodev.oopbank.OOPBank.jar`. Ensure that it is in the root directory of the project.
 
 5. **Run the Application:**
 
-   In the terminal, navigate to the OOPBank project folder:
+   In the terminal, navigate to the com.miletodev.oopbank.OOPBank project folder:
    ```bash
-   cd OOPBank
+   cd com.miletodev.oopbank.OOPBank
    ```
 
    To run the application, use the following command:
    ```bash
-   java -jar OOPBank.jar
+   java -jar com.miletodev.oopbank.OOPBank.jar
    ```
    The system should start, and you will see a command-line interface that allows you to manage your banking operations.
 
@@ -112,7 +112,7 @@ If you just want to run the application, follow the steps below:
 
    After configuring the database and downloading the `.jar` file of the application, you can run the project with the following command in the terminal:
    ```bash
-   java -jar OOPBank.jar
+   java -jar com.miletodev.oopbank.OOPBank.jar
    ```
    The system should start, presenting a command-line interface for you to create accounts, log in, and manage your banking operations.
 
