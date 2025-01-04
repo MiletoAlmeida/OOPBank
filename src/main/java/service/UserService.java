@@ -2,5 +2,5 @@ package service;
 
 import model.User;
 
-public interface UserService extends CrudService <Long, User> {
+public interface UserService extends CrudService <User, Long> {
 }

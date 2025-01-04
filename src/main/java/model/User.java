@@ -1,6 +1,7 @@
 package model;
 
 import jakarta.persistence.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,18 @@ public class User {
 
     @OneToMany
     private List<Card> cards;
+
+    private String passwordHash; // Armazena o hash da senha
+
+    public void setPassword(String password) {
+        // Hash da senha antes de armazenar
+        this.passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public boolean checkPassword(String password) {
+        // Verifica se a senha fornecida corresponde ao hash armazenado
+        return BCrypt.checkpw(password, this.passwordHash);
+    }
 
     public long getId() {
         return id;
