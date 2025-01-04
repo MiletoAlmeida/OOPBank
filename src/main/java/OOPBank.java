@@ -1,5 +1,7 @@
 import model.User;
-import service.CrudService;
+import repository.UserRepository;
+import service.AccountFactory;
+import service.UserService;
 import service.impl.UserServiceImpl;
 
 import java.text.ParseException;
@@ -9,6 +11,10 @@ import java.util.Scanner;
 
 public class OOPBank {
     public static void main(String[] args) {
+        UserRepository userRepository = new userRepository();
+        AccountFactory accountFactory = new AccountFactory();
+        UserService userService = new UserServiceImpl(userRepository, accountFactory);
+
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to OOPBank!");
         while (true) { // Loop para manter o menu ativo até o usuário escolher sair
@@ -29,10 +35,10 @@ public class OOPBank {
 
             switch (option) {
                 case 1:
-                    UserRegister(input, new UserServiceImpl()); // Passar o Scanner como argumento
+                    UserRegister(input, userService);
                     break;
                 case 2:
-                    UserLogin(input, new UserServiceImpl()); // Passar o Scanner como argumento
+                    UserLogin(input, userService);
                     break;
                 case 3:
                     System.out.println("Exiting... Goodbye!");
@@ -44,7 +50,7 @@ public class OOPBank {
         }
     }
 
-    public static void UserRegister(Scanner input, UserServiceImpl userService) {
+    public static void UserRegister(Scanner input, UserService userService) {
         System.out.println("Let's start to create your account.");
         User user = new User();
 
@@ -102,9 +108,10 @@ public class OOPBank {
         // Salvar o usuário no repositório
         userService.save(user);
         System.out.println("User registered successfully!");
+
     }
 
-    public static void UserLogin(Scanner input, UserServiceImpl userService) {
+    public static void UserLogin(Scanner input, UserService userService) {
         System.out.println("Enter your ID: ");
         long id;
 
