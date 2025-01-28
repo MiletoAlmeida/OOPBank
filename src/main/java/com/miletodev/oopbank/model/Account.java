@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
+
 @Entity(name = "tb_account")
 public class Account {
 
@@ -16,7 +18,7 @@ public class Account {
 
     private int agency;
 
-    private double balance;
+    private BigDecimal balance;
 
     private double additionalLimit;
 
@@ -44,11 +46,11 @@ public class Account {
         this.agency = agency;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

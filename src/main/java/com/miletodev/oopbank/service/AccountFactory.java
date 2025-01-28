@@ -4,6 +4,7 @@ import com.miletodev.oopbank.model.Account;
 import com.miletodev.oopbank.model.User;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Random;
 
 @Service
@@ -15,7 +16,7 @@ public class AccountFactory {
         Account account = new Account();
         account.setNumber(generateAccountNumber());
         account.setAgency(1111);
-        account.setBalance(0.0);
+        account.setBalance(BigDecimal.valueOf(0.0));
         account.setAdditionalLimit(500.0);
 
         user.setAccount(account);
