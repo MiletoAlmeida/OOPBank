@@ -1,14 +1,10 @@
 package com.miletodev.oopbank;
 
 import com.miletodev.oopbank.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import com.miletodev.oopbank.repository.UserRepository;
-import com.miletodev.oopbank.service.AccountFactory;
-import com.miletodev.oopbank.service.UserService;
 import com.miletodev.oopbank.service.impl.UserServiceImpl;
+import org.springframework.context.ApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,26 +14,24 @@ import java.util.Scanner;
 @SpringBootApplication
 public class OOPBank {
 
-    @Autowired
-    private static UserRepository userRepository;
+    private final UserServiceImpl userService;
 
-    @Autowired
-    private static AccountFactory accountFactory;
-
-    @Autowired
-    private static UserService userService;
+    public OOPBank(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     public static void main(String[] args) {
         // Inicialização do contexto do Spring
         ApplicationContext context = SpringApplication.run(OOPBank.class, args);
 
         // Recupera as instâncias dos beans do Spring
-        userRepository = context.getBean(UserRepository.class);
-        accountFactory = context.getBean(AccountFactory.class);
-        userService = new UserServiceImpl(userRepository, accountFactory);
+        OOPBank app = context.getBean(OOPBank.class);
+        app.startConsoleMenu();
+    }
 
+    private void startConsoleMenu() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Welcome to com.miletodev.oopbank.OOPBank!");
+        System.out.println("Welcome to OOPBank!");
         while (true) { // Loop para manter o menu ativo até o usuário escolher sair
             System.out.println("Choose an option: ");
             System.out.println("1. Register");
@@ -56,10 +50,10 @@ public class OOPBank {
 
             switch (option) {
                 case 1:
-                    UserRegister(input, userService);
+                    registerUser(input);
                     break;
                 case 2:
-                    UserLogin(input, userService);
+
                     break;
                 case 3:
                     System.out.println("Exiting... Goodbye!");
@@ -70,93 +64,83 @@ public class OOPBank {
             }
         }
     }
+    private void registerUser(Scanner input) {
+            System.out.println("Let's start to create your account.");
+            System.out.println("Please provide the following details:");
 
-    public static void UserRegister(Scanner input, UserService userService) {
-        System.out.println("Let's start to create your account.");
-        User user = new User();
+            System.out.print("ID: ");
+            long id = input.nextLong();
+            input.nextLine(); // Consumir quebra de linha
 
-        System.out.println("ID: ");
-        while (!input.hasNextLong()) {
-            System.out.println("Invalid ID. Please enter a numeric value.");
-            input.next(); // Consumir entrada inválida
-        }
-        user.setId(input.nextLong());
-        input.nextLine(); // Consumir quebra de linha
+            System.out.print("First Name: ");
+            String firstName = input.nextLine();
 
-        System.out.println("First name: ");
-        user.setFirstName(input.nextLine());
+            System.out.print("Last Name: ");
+            String lastName = input.nextLine();
 
-        System.out.println("Surname: ");
-        user.setSurname(input.nextLine());
+            System.out.print("Email: ");
+            String email = input.nextLine();
 
-        System.out.println("Email: ");
-        user.setEmail(input.nextLine());
+            System.out.print("Phone Number: ");
+            String phoneNumber = input.nextLine();
 
-        System.out.println("Phone number: ");
-        user.setPhoneNumber(input.nextLine());
+            System.out.print("Address: ");
+            String address = input.nextLine();
 
-        System.out.println("Address: ");
-        user.setAddress(input.nextLine());
-
-        Date birthday = null;
-        while (birthday == null) {
-            System.out.println("Birthday (yyyy-MM-dd): ");
-            String birthdayInput = input.nextLine();
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                dateFormat.setLenient(false);
-                birthday = dateFormat.parse(birthdayInput);
-                user.setBirthday(birthday);
-            } catch (ParseException e) {
-                System.out.println("Invalid date format. Please try again.");
+            System.out.print("Birthday (yyyy-MM-dd): ");
+            Date birthday;
+            while (true) {
+                try {
+                    String birthdayInput = input.nextLine();
+                    birthday = new SimpleDateFormat("yyyy-MM-dd").parse(birthdayInput);
+                    break;
+                } catch (ParseException e) {
+                    System.out.println("Invalid date format. Please use yyyy-MM-dd.");
+                }
             }
-        }
 
-        System.out.println("Income: ");
-        while (!input.hasNextDouble()) {
-            System.out.println("Invalid income. Please enter a numeric value.");
-            input.next(); // Consumir entrada inválida
-        }
-        user.setIncome(input.nextDouble());
-        input.nextLine(); // Consumir quebra de linha
+            System.out.print("Income: ");
+            double income = input.nextDouble();
+            input.nextLine(); // Consumir quebra de linha
 
-        System.out.println("Occupation: ");
-        user.setOccupation(input.nextLine());
+            System.out.print("Occupation: ");
+            String occupation = input.nextLine();
 
-        System.out.println("User created successfully! Now, please set a password: ");
-        user.setPassword(input.nextLine());
+            System.out.print("Password: ");
+            String password = input.nextLine();
 
-        // Salvar o usuário no repositório
-        userService.save(user);
-        System.out.println("User registered successfully!");
+            // Criar o objeto User
+            User user = new User();
+            user.setId(id);
+            user.setFirstName(firstName);
+            user.setSurname(lastName);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setAddress(address);
+            user.setBirthday(birthday);
+            user.setIncome(income);
+            user.setOccupation(occupation);
+            user.setPassword(password);
+            userService.save(user);
+            System.out.println("User registered successfully!");
+
     }
 
-    public static void UserLogin(Scanner input, UserService userService) {
-        System.out.println("Enter your ID: ");
-        long id;
-
-        // Validação para garantir que o ID é um número
-        while (!input.hasNextLong()) {
-            System.out.println("Invalid ID. Please enter a numeric value.");
-            input.next(); // Consumir entrada inválida
-        }
-        id = input.nextLong();
+    private void loginUser (Scanner input) {
+        System.out.print("Enter your ID: ");
+        long id = input.nextLong();
         input.nextLine(); // Consumir quebra de linha
 
-        // Buscar usuário pelo ID
-        User user = userService.findById(id);
-        if (user == null) {
-            System.out.println("User not found. Please register first.");
-            return;
-        }
-
-        System.out.println("Enter your password: ");
+        System.out.print("Enter your password: ");
         String password = input.nextLine();
 
-        if (user.checkPassword(password)) {
-            System.out.println("Login successful! Welcome, " + user.getFirstName() + "!");
+        // Autenticar usando LoginService
+        boolean isAuthenticated = userService.authenticate(id, password);
+
+        if (isAuthenticated) {
+            System.out.println("Login successful! Welcome!");
         } else {
-            System.out.println("Invalid password. Please try again.");
+            System.out.println("Invalid ID or password. Please try again.");
         }
     }
 }

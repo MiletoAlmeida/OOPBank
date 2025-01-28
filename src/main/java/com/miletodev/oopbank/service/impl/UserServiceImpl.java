@@ -9,6 +9,7 @@ import com.miletodev.oopbank.service.AccountFactory;
 import com.miletodev.oopbank.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,5 +51,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public boolean authenticate(long id, String password) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get().checkPassword(password); // Assumindo que o método checkPassword existe no User
+        }
+        return false;
     }
 }
