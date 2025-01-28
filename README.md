@@ -55,4 +55,3 @@ Contributions are welcome. Feel free to fork the repository and submit a pull re
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
