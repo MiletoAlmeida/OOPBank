@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 @SpringBootApplication
 public class OOPBank {
 
@@ -53,11 +55,12 @@ public class OOPBank {
                     registerUser(input);
                     break;
                 case 2:
-
+                    loginUser(input);
                     break;
                 case 3:
                     System.out.println("Exiting... Goodbye!");
                     input.close();
+                    exit(0);
                     return; // Encerra o programa
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -140,7 +143,11 @@ public class OOPBank {
         if (isAuthenticated) {
             System.out.println("Login successful! Welcome!");
         } else {
-            System.out.println("Invalid ID or password. Please try again.");
+            if (userService.exists(id)) {
+                System.out.println("Invalid password. Please try again.");
+            } else {
+                System.out.println("User not found. Please register first.");
+            }
         }
     }
 }

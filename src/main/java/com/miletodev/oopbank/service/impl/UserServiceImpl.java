@@ -60,4 +60,11 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+    public boolean exists(long id) {
+        if (userRepository.existsById(id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
