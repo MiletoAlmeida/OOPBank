@@ -15,6 +15,8 @@ In the first version, It was a simple console application with only Java and Mav
 - Check transaction history
 - Invest
 
+An analysis of the project was made, and it was decided to improve it. To check the analysis, click [here](https://gilyssabrt.notion.site/Mileto-15616b375d0e80f49e86f2d2fc56c160).
+
 In the second version, I am using Spring Boot to improve the project and make it more professional. I am also using the MVC pattern to separate the layers of the application.
 The project is still in progress, and I am working on it in my free time. I am also learning more about Spring Boot and the MVC pattern, so in the future the other features will be implemented.
 
