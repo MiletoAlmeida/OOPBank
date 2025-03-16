@@ -39,7 +39,7 @@ public class UserController {
      * @return ResponseEntity with a success message if authenticated, otherwise an error message.
      */
     @RequestMapping("/login")
-    public ResponseEntity<String> login(@RequestBody long id, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam long id, @RequestParam String password) {
         boolean isAuthenticated = userServiceImpl.authenticate(id, password);
         if (isAuthenticated) {
             return ResponseEntity.ok("User logged in successfully!");

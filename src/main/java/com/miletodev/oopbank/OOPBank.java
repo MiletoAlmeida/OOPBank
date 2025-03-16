@@ -1,13 +1,17 @@
 package com.miletodev.oopbank;
 
 import com.miletodev.oopbank.model.User;
+import com.miletodev.oopbank.service.impl.AccountServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.miletodev.oopbank.service.impl.UserServiceImpl;
 import org.springframework.context.ApplicationContext;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -19,16 +23,17 @@ import static java.lang.System.exit;
  */
 @SpringBootApplication
 public class OOPBank {
-
     private final UserServiceImpl userService;
+    private final AccountServiceImpl accountServiceImpl;
 
     /**
      * Constructor for OOPBank.
      *
      * @param userService the user service implementation
      */
-    public OOPBank(UserServiceImpl userService) {
+    public OOPBank(UserServiceImpl userService, AccountServiceImpl accountServiceImpl) {
         this.userService = userService;
+        this.accountServiceImpl = accountServiceImpl;
     }
 
     /**
@@ -114,13 +119,13 @@ public class OOPBank {
         String address = input.nextLine();
 
         System.out.print("Birthday (yyyy-MM-dd): ");
-        Date birthday;
+        LocalDate birthday;
         while (true) {
             try {
                 String birthdayInput = input.nextLine();
-                birthday = new SimpleDateFormat("yyyy-MM-dd").parse(birthdayInput);
+                birthday = LocalDate.parse(birthdayInput);
                 break;
-            } catch (ParseException e) {
+            } catch (java.time.format.DateTimeParseException e) {
                 System.out.println("Invalid date format. Please use yyyy-MM-dd.");
             }
         }
@@ -169,11 +174,62 @@ public class OOPBank {
 
         if (isAuthenticated) {
             System.out.println("Login successful! Welcome!");
+            accountMenu(input, id, password);
         } else {
             if (userService.exists(id)) {
                 System.out.println("Invalid password. Please try again.");
             } else {
                 System.out.println("User not found. Please register first.");
+            }
+        }
+    }
+
+    public void accountMenu(Scanner input, long accountId, String password) {
+        while (true) {
+            System.out.println("Account Menu:");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Transfer");
+            System.out.println("4. Check Balance");
+            System.out.println("5. Logout");
+
+            int option = input.nextInt();
+            input.nextLine(); // Consume the newline
+
+            switch (option) {
+                case 1:
+                    System.out.print("Enter amount to deposit: ");
+                    BigDecimal depositAmount = input.nextBigDecimal();
+                    input.nextLine(); // Consume the newline
+                    accountServiceImpl.deposit(accountId, depositAmount);
+                    System.out.println("Deposit successful! Your balance is now: " + accountServiceImpl.checkBalance(accountId));
+                    break;
+                case 2:
+                    System.out.print("Enter amount to withdraw: ");
+                    BigDecimal withdrawAmount = input.nextBigDecimal();
+                    input.nextLine(); // Consume the newline
+                    accountServiceImpl.withdraw(accountId, withdrawAmount);
+                    System.out.println("Withdrawal successful! Your balance is now: " + accountServiceImpl.checkBalance(accountId));
+                    break;
+                case 3:
+                    System.out.print("Enter destination account ID: ");
+                    long toAccountId = input.nextLong();
+                    input.nextLine(); // Consume the newline
+                    System.out.print("Enter amount to transfer: ");
+                    BigDecimal transferAmount = input.nextBigDecimal();
+                    input.nextLine(); // Consume the newline
+                    accountServiceImpl.transfer(accountId, toAccountId, transferAmount);
+                    System.out.println("Transfer successful! Your balance is now: " + accountServiceImpl.checkBalance(accountId));
+                    break;
+                case 4:
+                    BigDecimal balance = accountServiceImpl.checkBalance(accountId);
+                    System.out.println("Your balance is: " + balance);
+                    break;
+                case 5:
+                    System.out.println("Logging out...");
+                    return; // Exit the account menu
+                default:
+                    System.out.println("Invalid option. Please try again.");
             }
         }
     }

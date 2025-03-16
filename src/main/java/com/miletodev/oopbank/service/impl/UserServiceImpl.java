@@ -1,5 +1,7 @@
 package com.miletodev.oopbank.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.miletodev.oopbank.model.User;
@@ -14,6 +16,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
+
     private final UserRepository userRepository;
     private final AccountFactory accountFactory;
 
@@ -25,12 +29,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        // Criar a conta automaticamente para o usuário
+        logger.info("Saving user with ID: {}", user.getId());
         Account account = accountFactory.createAccount(user);
-        user.setAccount(account); // Associar a conta ao usuário
-
-        // Salvar o usuário no repositório
-        return userRepository.save(user);
+        user.setAccount(account);
+        User savedUser = userRepository.save(user);
+        logger.info("User saved successfully with ID: {}", savedUser.getId());
+        return savedUser;
     }
 
     @Override

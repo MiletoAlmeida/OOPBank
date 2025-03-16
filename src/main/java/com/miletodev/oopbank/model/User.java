@@ -3,7 +3,7 @@ package com.miletodev.oopbank.model;
 import jakarta.persistence.*;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "tb_user")
@@ -22,7 +22,7 @@ public class User {
 
     private String address;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     private double income;
 
@@ -94,11 +94,11 @@ public class User {
         this.address = address;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
